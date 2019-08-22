@@ -6,27 +6,16 @@
 	<body>
 		<script>
 			for (var k = 0; k < 50 * 5/3; ++k) {
-				var a = Math.random()
+				var a = Math.random();
 				let problem = "\\(";
 
 				if (a < 3.0/20.0) {
 					problem += "-\\left(";
 				}
-				var b = Math.random();
-				if (b < 0.25) {
-					problem += "-";
-				}
-				var c = Math.round(1 + Math.random()*6);
-				var d = Math.round(1 + Math.random()*20);
-				var e = Math.random();
-				problem += "\\dfrac{"
-				if (b > 0.25 && e < 0.25) {
-					problem+= "-"
-				}
-				problem += c;
-				problem += "}{"
-				problem += d;
-				problem += "}"
+
+				var frac1 = fraction_string();
+				problem += frac1.fraction;
+
 				if (a < 3.0/20.0) {
 					problem += "\\right)";
 				}
@@ -39,23 +28,15 @@
 					problem += "+";
 				}
 
-				var b = Math.random();
-				if (b < 0.25) {
-					problem += "\\left(-";
-				}
-				var c = Math.round(1 + Math.random()*6);
-				var d = Math.round(1 + Math.random()*20);
-				var e = Math.random();
-				problem += "\\dfrac{"
-				if (b >= 0.25 && e < 0.25) {
-					problem+= "-"
-				}
-				problem += c;
-				problem += "}{"
-				problem += d;
-				problem += "}"
-				if (b < 0.25) {
+				var frac2 = fraction_string();
+				var b = frac2.sign;
+				if (b) {
+					problem += "\\left("
+					problem += frac2.fraction;
 					problem += "\\right)"
+				}
+				else {
+					problem += frac2.fraction;
 				}
 
 				problem += "\\)"
@@ -71,6 +52,54 @@
 				let p = document.createElement('p');
 				p.appendChild(document.createTextNode(problem));
 				document.body.appendChild(p);
+			}
+
+			function fraction_string() {
+				var problem = '';
+				var b = Math.random();
+				var c = Math.round(1 + Math.random()*6);
+				var d = Math.round(1 + Math.random()*20);
+				var the_gcf = gcd(c,d);
+				c /= the_gcf;
+				d /= the_gcf;
+				var e = Math.random();
+
+				var whole = Math.round(c/d);
+				var fract = (c % d);
+
+				if (fract !== 0) {
+					if (c > d) {
+						c = Math.round(1 + Math.random()*d);
+					}
+					if (b < 0.25) {
+						problem += "-";
+					}
+					problem += "\\dfrac{"
+					if (b >= 0.25 && e < 0.25) {
+						problem+= "-"
+					}
+					problem += c;
+					problem += "}{"
+					problem += d;
+					problem += "}"
+				}
+				else {
+					var sign = (b < 0.25 && e >= 0.25 || b >= 0.25 && e < 0.25);
+					if (sign) {
+						whole = -whole;
+					}
+					problem += whole;
+					return { "sign" : sign, "fraction" : problem };
+				}
+
+				return { "sign" : (b < 0.25), "fraction" : problem };
+			}
+
+			function gcd(a, b) {
+				if (b === 0) {
+					return a;
+				}
+				return gcd(b, (a % b));
 			}
 		</script>
 		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
