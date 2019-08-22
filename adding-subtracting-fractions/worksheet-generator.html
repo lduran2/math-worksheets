@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Adding/subtracting fractions</title>
+	</head>
+	<body>
+		<script>
+			for (var k = 0; k < 50 * 5/3; ++k) {
+				var a = Math.random()
+				let problem = "\\(";
+
+				if (a < 3.0/20.0) {
+					problem += "-\\left(";
+				}
+				var b = Math.random();
+				if (b < 0.25) {
+					problem += "-";
+				}
+				var c = Math.round(1 + Math.random()*6);
+				var d = Math.round(1 + Math.random()*20);
+				var e = Math.random();
+				problem += "\\dfrac{"
+				if (b > 0.25 && e < 0.25) {
+					problem+= "-"
+				}
+				problem += c;
+				problem += "}{"
+				problem += d;
+				problem += "}"
+				if (a < 3.0/20.0) {
+					problem += "\\right)";
+				}
+
+				var f = Math.random();
+				if (f < 0.5) {
+					problem += "-";
+				}
+				else {
+					problem += "+";
+				}
+
+				var b = Math.random();
+				if (b < 0.25) {
+					problem += "\\left(-";
+				}
+				var c = Math.round(1 + Math.random()*6);
+				var d = Math.round(1 + Math.random()*20);
+				var e = Math.random();
+				problem += "\\dfrac{"
+				if (b >= 0.25 && e < 0.25) {
+					problem+= "-"
+				}
+				problem += c;
+				problem += "}{"
+				problem += d;
+				problem += "}"
+				if (b < 0.25) {
+					problem += "\\right)"
+				}
+
+				problem += "\\)"
+
+				var f = Math.random();
+				if (f < 0.5) {
+					problem = "Evaluate: " + problem;
+				}
+				else {
+					problem = "Compute: " + problem;
+				}
+
+				let p = document.createElement('p');
+				p.appendChild(document.createTextNode(problem));
+				document.body.appendChild(p);
+			}
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	</body>
+</html>
