@@ -1,0 +1,40 @@
+\documentclass[12pt,twocolumn]{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage[margin=1in]{geometry}
+
+\usepackage{amsmath}
+
+\usepackage{tikz}
+
+\title{Multiply 3 digit numbers by 2 digit numbers}
+\author{Leomar Dur\'an}
+\date{24\(^{\text{th}}\) November 2019}
+
+\begin{document}
+
+\thispagestyle{empty}
+
+\newcounter{randtwo}
+
+\begin{enumerate}
+    \foreach \k in {1,...,108}{
+        \item
+            \pgfmathparse{random(2)}
+            \setcounter{randtwo}{\pgfmathresult}
+            \ifnum\therandtwo=1
+                Compute:
+            \else
+                Evaluate:
+            \fi
+            \(
+                \pgfmathparse{int(random(100,999))}
+                    \pgfmathresult
+                \times
+                \pgfmathparse{int(random(10,99))}
+                    \pgfmathresult
+            \)
+    }
+\end{enumerate}
+
+\end{document}
